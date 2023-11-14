@@ -14,7 +14,7 @@ def average(filtered_dataset):
 # filtering records based on dates
 def filter_data(dataset, fromdate, todate):
     filtered_data = []
-    fromdate = datetime.datetime.strptime(fromdate, '%Y-%m-%d').date()
+    fromdate = datetime.datetime.strptime(fromdate, '%Y-%m-%d').date()  
     todate = datetime.datetime.strptime(todate, '%Y-%m-%d').date()
 
     for row in dataset[1:]:
@@ -51,8 +51,8 @@ def prediction_menu():
     print('1. Based on 10 days average')
     print('2. Based on current month')
     print('3. Based on 3 months average')
-    print('3. Based on current year')
-    print('4. Based on current season')
+    print('4. Based on current year')
+    print('5. Based on current season')
     opt = int(input('Enter option(1-4):'))
     return opt
 
@@ -77,16 +77,19 @@ def main():
     madras = read_dataset('Madras.csv')
     mumbai = read_dataset('Mumbai.csv')
     bangalore = read_dataset('Bangalore.csv')
+    
+    cities_list = {"1":madras, "2":mumbai,"3":bangalore}
 
+    # TODO should be fit into a while loop 
     opt = main_menu()
     if opt == 1:
         print()
-        city = choose_city()
-        city = CITIES[city]
+        city = choose_city()     # number 1 or 2 
+        city = cities_list[city]  # list 
         fromdate, todate = fromtodates()
 
         print()
-        res = filter_data(madras, fromdate, todate)
+        res = filter_data(city, fromdate, todate)
         print(tabulate.tabulate(res, headers='firstrow', tablefmt='grid'))
 
     elif opt == 2:
@@ -110,6 +113,12 @@ def main():
         fromdate, todate = fromtodates()
 
         # TODO display averages for both cities for the given time period
+        
+        #  city       |   tavg | tmin   | tmax   | prcp   |
+        # +============+========+========+========+========+
+        # | Chennai   |   24   | 19.7   | 27.7   | 0      |
+        # +------------+--------+--------+--------+--------+
+        # | Mumbai    |   23.8 | 21.5   | 27     | 15.7
 
     elif opt == 4:
         print()
