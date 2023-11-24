@@ -7,8 +7,31 @@ CITIES = {"1": 'Chennai', "2": 'Mumbai', "3": 'Bangalore', "4": 'Delhi'}
 
 
 def average(filtered_dataset):
-    pass
-    # TODO entire function
+    avgl=[0,0,0,0]
+    day=[0,0,0,0]
+    
+    for i in filtered_dataset:
+        if i[1]!='':
+            avgl[0]+=float(i[1])
+            day[0]+=1
+            
+        if i[2]!='':
+            avgl[1]+=float(i[2])
+            day[1]+=1
+            
+        if i[3]!='':
+            avgl[2]+=float(i[3])
+            day[2]+=1
+
+        if i[4]!='':
+            avgl[3]+=float(i[4])
+            day[3]+=1
+            
+    rainfallavg=(avgl[0]//day[0])
+    tempavg=avgl[1]//day[1]
+    tminavg=avgl[2]//day[2]
+    tmaxavg=avgl[3]//day[3]
+    return(rainfallavg,tempavg,tminavg,tmaxavg)
 
 
 # filtering records based on dates
@@ -80,7 +103,10 @@ def main():
     
     cities_list = {"1":madras, "2":mumbai,"3":bangalore}
 
-    # TODO should be fit into a while loop 
+    # TODO should be fit into a while loop
+
+ans='yes'       
+while ans=='yes':
     opt = main_menu()
     if opt == 1:
         print()
@@ -126,6 +152,7 @@ def main():
         city = CITIES[city]
         print()
         prediction_menu()
+ans=input('do you wish to analyse more:')
 
         # TODO options for each prediction menu
 
