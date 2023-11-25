@@ -33,10 +33,10 @@ def average(filtered_dataset):
             avgl[3]+=float(i[4])
             day[3]+=1
             
-    rainfallavg=(avgl[3]//day[3])
-    tempavg=(avgl[0]//day[0])
-    tminavg=(avgl[1]//day[1])
-    tmaxavg=(avgl[2]//day[2])
+    rainfallavg=(avgl[3]/day[3])
+    tempavg=(avgl[0]/day[0])
+    tminavg=(avgl[1]/day[1])
+    tmaxavg=(avgl[2]/day[2])
     return(tempavg,tminavg,tmaxavg,rainfallavg)
 
 
