@@ -9,8 +9,14 @@ CITIES = {"1": 'Chennai', "2": 'Mumbai', "3": 'Bangalore', "4": 'Delhi'}
 def average(filtered_dataset):
     avgl=[0,0,0,0]
     day=[0,0,0,0]
+    k=0
+    
     
     for i in filtered_dataset:
+     if k==0:
+         k+=1
+         continue
+     else:
         if i[1]!='':
             avgl[0]+=float(i[1])
             day[0]+=1
@@ -27,11 +33,11 @@ def average(filtered_dataset):
             avgl[3]+=float(i[4])
             day[3]+=1
             
-    rainfallavg=(avgl[0]//day[0])
-    tempavg=avgl[1]//day[1]
-    tminavg=avgl[2]//day[2]
-    tmaxavg=avgl[3]//day[3]
-    return(rainfallavg,tempavg,tminavg,tmaxavg)
+    rainfallavg=(avgl[3]//day[3])
+    tempavg=(avgl[0]//day[0])
+    tminavg=(avgl[1]//day[1])
+    tmaxavg=(avgl[2]//day[2])
+    return(tempavg,tminavg,tmaxavg,rainfallavg)
 
 
 # filtering records based on dates
@@ -105,10 +111,10 @@ def main():
 
     # TODO should be fit into a while loop
 
-ans='yes'       
-while ans=='yes':
-    opt = main_menu()
-    if opt == 1:
+    ans='yes'       
+    while ans=='yes':
+     opt = main_menu()
+     if opt == 1:
         print()
         city = choose_city()     # number 1 or 2 
         city = cities_list[city]  # list 
@@ -118,25 +124,59 @@ while ans=='yes':
         res = filter_data(city, fromdate, todate)
         print(tabulate.tabulate(res, headers='firstrow', tablefmt='grid'))
 
-    elif opt == 2:
+     elif opt == 2:
+        l=[]
         print()
         city = choose_city()
-        city = CITIES[city]
+        city = cities_list[city]
         fromdate, todate = fromtodates()
-
-        # TODO call the average function here
-
-    elif opt == 3:
+        #calling the average function here
+        res = filter_data(city, fromdate, todate)#tuple
         print()
+        
+
+        cityavg=average(res)
+        l1=['avgtemp of the city','tminavg','tmaxavg','rainfallavg of the city']
+        l2=list(cityavg)
+        l.append(l1)
+        l.append(l2)
+        print(tabulate.tabulate(l, headers='firstrow', tablefmt='grid'))
+
+        #cityavg= average(city)
+        #print(tabulate.tabulate(cityavg, headers='firstrow', tablefmt='grid'))
+
+
+     elif opt == 3:
+        l=[]
+        print()
+        l1=['city','avgtemp of the city','tminavg','tmaxavg','rainfallavg of the city']
+        l.append(l1)
         city1 = choose_city()
-        city1 = CITIES[city1]
+        
+        ##doubt
+        l3=list(city1)
+        l.append(l3)
+        ##
 
-        print()
-        city2 = choose_city()
-        city2 = CITIES[city2]
-
-        print()
+        
+        city1 =  cities_list[city1]
         fromdate, todate = fromtodates()
+        res = filter_data(city1, fromdate, todate)#tuple
+        
+
+        cityavg=average(res)
+        
+        l2=list(cityavg)
+
+        l.append(l2)
+        
+        print(tabulate.tabulate(l, headers='firstrow', tablefmt='grid'))
+
+        #city2 = choose_city()
+        #city2 = CITIES[city2]
+
+        #print()
+        #fromdate, todate = fromtodates()
 
         # TODO display averages for both cities for the given time period
         
@@ -146,13 +186,13 @@ while ans=='yes':
         # +------------+--------+--------+--------+--------+
         # | Mumbai    |   23.8 | 21.5   | 27     | 15.7
 
-    elif opt == 4:
+     elif opt == 4:
         print()
         city = choose_city()
         city = CITIES[city]
         print()
         prediction_menu()
-ans=input('do you wish to analyse more:')
+    ans=input('do you wish to analyse more:')
 
         # TODO options for each prediction menu
 
