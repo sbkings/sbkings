@@ -100,7 +100,24 @@ def fromtodates():
     todate = input('Enter to date (yyyy-mm-dd):')
     return fromdate, todate
 
+#predicton based on 10 day avg
 
+def tendayavg(city):
+     date=input('enter a date')
+     for i in city:
+         if i[0]==date:
+             k=city.index(i)
+     tenavg=city[k-5:k+6]
+     print(tenavg)
+
+     y=average(tenavg)
+     return avg
+     
+
+
+
+
+     
 # main function
 def main():
     madras = read_dataset('Madras.csv')
@@ -108,6 +125,9 @@ def main():
     bangalore = read_dataset('Bangalore.csv')
     
     cities_list = {"1":madras, "2":mumbai,"3":bangalore}
+
+
+    
 
     # TODO should be fit into a while loop
 
@@ -187,11 +207,14 @@ def main():
         # | Mumbai    |   23.8 | 21.5   | 27     | 15.7
 
      elif opt == 4:
-        print()
         city = choose_city()
-        city = CITIES[city]
-        print()
-        prediction_menu()
+        city = cities_list[city]
+        o=prediction_menu()
+        if o==1:
+           avg= tendayavg(city)
+           
+
+        
     ans=input('do you wish to analyse more:')
 
         # TODO options for each prediction menu
